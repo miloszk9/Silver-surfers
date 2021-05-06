@@ -1,27 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SC_PlatformTile : MonoBehaviour
 {
     public Transform startPoint;
     public Transform endPoint;
-    public GameObject[] obstacles; //Objects that contains different obstacle types which will be randomly activated
+    public GameObject[] obstacles;
 
     public void ActivateRandomObstacle()
     {
         DeactivateAllObstacles();
 
         System.Random random = new System.Random();
-        int randomNumber = random.Next(0, obstacles.Length);
-        obstacles[randomNumber].SetActive(true);
+        int i = random.Next(obstacles.Length);
+        obstacles[i].SetActive(true);
     }
 
     public void DeactivateAllObstacles()
     {
-        for (int i = 0; i < obstacles.Length; i++)
+        foreach (GameObject gameObject in obstacles)
         {
-            obstacles[i].SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }

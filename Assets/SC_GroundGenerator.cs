@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,24 +5,19 @@ using UnityEngine.SceneManagement;
 public class SC_GroundGenerator : MonoBehaviour
 {
     public Camera mainCamera;
-
-    public float change_track = 300;
     public Transform startPoint; //Point from where ground tiles will start
     public SC_PlatformTile tilePrefab;
     public float movingSpeed = 12;
-    public int tilesToPreSpawn = 15; //How many tiles should be pre-spawned
+    public int tilesToPreSpawn = 3; //How many tiles should be pre-spawned
     public int tilesWithoutObstacles = 3; //How many tiles at the beginning should not have obstacles, good for warm-up
 
     List<SC_PlatformTile> spawnedTiles = new List<SC_PlatformTile>();
-    int nextTileToActivate = -1;
-    [HideInInspector]
     public bool gameOver = false;
     static bool gameStarted = false;
     float score = 0;
 
     public static SC_GroundGenerator instance;
 
-    // Start is called before the first frame update
     void Start()
     {
         instance = this;
@@ -50,29 +44,12 @@ public class SC_GroundGenerator : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
-    {
-
-      
-        // Move the object upward in world space x unit/second.
-        //Increase speed the higher score we get
+    { 
         if (!gameOver && gameStarted)
         {
             transform.Translate(-spawnedTiles[0].transform.right * Time.deltaTime * (movingSpeed + (score/500)), Space.World);
             score += Time.deltaTime * movingSpeed;
-
-            print(transform.position);
-
-            if (Input.GetKeyDown(KeyCode.A) && transform.position.z > -1.5 )
-            {
-               transform.Translate(-spawnedTiles[0].transform.forward * Time.deltaTime * (movingSpeed + change_track + (score/500)), Space.World);
-            }
-
-            if (Input.GetKeyDown(KeyCode.D) && transform.position.z < 1.5)
-            {
-               transform.Translate(spawnedTiles[0].transform.forward * Time.deltaTime * (movingSpeed + change_track + (score/500)), Space.World);
-            }
         }
 
         if (mainCamera.WorldToViewportPoint(spawnedTiles[0].endPoint.position).z < 0)
@@ -106,6 +83,7 @@ public class SC_GroundGenerator : MonoBehaviour
 
     void OnGUI()
     {
+        //TODO: Proper GUI
         if (gameOver)
         {
             GUI.color = Color.red;

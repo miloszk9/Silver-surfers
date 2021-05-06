@@ -322,8 +322,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -8.98, y: 3.63, z: -0.06}
+  m_LocalRotation: {x: 0.19656827, y: 0.6805385, z: -0.19739462, w: 0.67768997}
+  m_LocalPosition: {x: -4.389015, y: 7.494656, z: 0.035246406}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -440,6 +440,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: 20
   jumpHeight: 2.5
+  crouchSpeed: 7
+  strafeDistance: 1.5
 --- !u!54 &1292321162
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -486,13 +488,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 963194227}
-  change_track: 300
   startPoint: {fileID: 636939830}
   tilePrefab: {fileID: 4225882037297489035, guid: 22513c41b073eed4b8e473b17b85796c, type: 3}
   movingSpeed: 12
-  tilesToPreSpawn: 15
+  tilesToPreSpawn: 3
   tilesWithoutObstacles: 3
-  gameOver: 0
 --- !u!4 &2066658383
 Transform:
   m_ObjectHideFlags: 0

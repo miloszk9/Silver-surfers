@@ -1,52 +1,63 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-public float gravity = 20.0f;
+    public float gravity = 20.0f;
     public float jumpHeight = 2.5f;
+    public float crouchSpeed = 7.0f;
+    public float strafeDistance = 1.5f;
 
-    Rigidbody r;
+    Rigidbody rigidBody;
     bool grounded = false;
-    Vector3 defaultScale;
-    bool crouch = false;
+    Vector3 originalScale;
+    float jumpVerticalSpeed;
 
-    // Start is called before the first frame update
     void Start()
     {
-        r = GetComponent<Rigidbody>();
-        r.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
-        r.freezeRotation = true;
-        r.useGravity = false;
-        defaultScale = transform.localScale;
+        rigidBody = GetComponent<Rigidbody>();
+        rigidBody.freezeRotation = true;
+        rigidBody.useGravity = false;
+        originalScale = transform.localScale;
+        jumpVerticalSpeed = CalculateJumpVerticalSpeed();
     }
 
     void Update()
     {
+        //TODO: Replace with model + animation
+
         // Jump
         if (Input.GetKeyDown(KeyCode.W) && grounded)
         {
-            r.velocity = new Vector3(r.velocity.x, CalculateJumpVerticalSpeed(), r.velocity.z);
+            
+            rigidBody.velocity = new Vector3(0, jumpVerticalSpeed, 0);
         }
 
         //Crouch
-        crouch = Input.GetKey(KeyCode.S);
-        if (crouch)
+        if(Input.GetKey(KeyCode.S))
         {
-            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(defaultScale.x, defaultScale.y * 0.4f, defaultScale.z), Time.deltaTime * 7);
+            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(originalScale.x, originalScale.y * 0.4f, originalScale.z), Time.deltaTime * crouchSpeed);
         }
         else
         {
-            transform.localScale = Vector3.Lerp(transform.localScale, defaultScale, Time.deltaTime * 7);
+            transform.localScale = Vector3.Lerp(transform.localScale, originalScale, Time.deltaTime * crouchSpeed);
+        }
+
+        //Go left and right
+        if(Input.GetKeyDown(KeyCode.A) && transform.position.z < 0.9f * strafeDistance)
+        {
+            transform.position += new Vector3(0, 0, strafeDistance);
+        }
+
+        if(Input.GetKeyDown(KeyCode.D) && transform.position.z > 0.9f * -strafeDistance)
+        {
+            transform.position += new Vector3(0, 0, -strafeDistance);
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         // We apply gravity manually for more tuning control
-        r.AddForce(new Vector3(0, -gravity * r.mass, 0));
+        rigidBody.AddForce(new Vector3(0, -gravity * rigidBody.mass, 0));
 
         grounded = false;
     }
@@ -62,15 +73,11 @@ public float gravity = 20.0f;
         // for the character to reach at the apex.
         return Mathf.Sqrt(2 * jumpHeight * gravity);
     }
-
-
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Finish")
+        if (collision.gameObject.tag == "Finish")
         {
-            //print("GameOver!");
             SC_GroundGenerator.instance.gameOver = true;
         }
     }
-
 }
