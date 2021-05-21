@@ -1,45 +1,50 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
     public float gravity = 20.0f;
     public float jumpHeight = 2.5f;
-    public float crouchSpeed = 7.0f;
+    public float shrinkOnRoll = 0.4f;
     public float strafeDistance = 1.5f;
+    public AnimationClip rollAnimation;
 
     Rigidbody rigidBody;
     bool grounded = false;
     Vector3 originalScale;
     float jumpVerticalSpeed;
+    BoxCollider boxCollider;
+    Vector3 colliderSize;
+    Vector3 colliderCenter;
 
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        boxCollider = GetComponent<BoxCollider>();
         rigidBody.freezeRotation = true;
         rigidBody.useGravity = false;
         originalScale = transform.localScale;
+        colliderSize = boxCollider.size;
+        colliderCenter = boxCollider.center;
         jumpVerticalSpeed = CalculateJumpVerticalSpeed();
     }
 
     void Update()
     {
-        //TODO: Replace with model + animation
 
         // Jump
         if (Input.GetKeyDown(KeyCode.W) && grounded)
         {
+            StopCoroutine(RollCoroutine());
+            ResetCollider();
             
             rigidBody.velocity = new Vector3(0, jumpVerticalSpeed, 0);
         }
 
-        //Crouch
+        //Roll
         if(Input.GetKey(KeyCode.S))
         {
-            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(originalScale.x, originalScale.y * 0.4f, originalScale.z), Time.deltaTime * crouchSpeed);
-        }
-        else
-        {
-            transform.localScale = Vector3.Lerp(transform.localScale, originalScale, Time.deltaTime * crouchSpeed);
+            StartCoroutine(RollCoroutine());
         }
 
         //Go left and right
@@ -73,6 +78,20 @@ public class PlayerController : MonoBehaviour
         // for the character to reach at the apex.
         return Mathf.Sqrt(2 * jumpHeight * gravity);
     }
+    IEnumerator RollCoroutine()
+    {
+        float scale = 0.4f;
+        boxCollider.size = new Vector3(colliderSize.x, colliderSize.y * scale, colliderSize.z);
+        boxCollider.center = new Vector3(colliderCenter.x, colliderCenter.y * scale, colliderCenter.z);
+        yield return new WaitForSecondsRealtime(rollAnimation.length);
+        ResetCollider();
+    }
+
+    void ResetCollider(){
+        boxCollider.size = colliderSize;
+        boxCollider.center = colliderCenter;
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Finish")
