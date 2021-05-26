@@ -1,57 +1,12 @@
 fileFormatVersion: 2
-guid: e263a5c265918f64184a10abb838d9a1
+guid: cc4e4eaaa72ecdf4c8e8d1f99ad0979b
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
     second: mixamo.com
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: FitGrandma_Brows_MAT1
-    second: {fileID: 2100000, guid: ee2b521b506cc0b4786979b290067774, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: FitGrandma_Eyes_MAT1
-    second: {fileID: 2100000, guid: c9587cb8fce62bf40be1e99c800b8b24, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: FitGrandma_Mouth_MAT1
-    second: {fileID: 2100000, guid: d0106fea8b05cc9468f7912b41ebe4c4, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Grandma_MAT
-    second: {fileID: 2100000, guid: 5b5f41475ed27ea4ebd61660752034a4, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Lens_MAT
-    second: {fileID: 2100000, guid: 72adce31bd08ead45b6f3f10f06610d2, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: FitnessGrandma_FaceAnimMap
-    second: {fileID: 2800000, guid: eaca4df70a8e4524989105dcd8a19d0b, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: FitnessGrandma_diffuse
-    second: {fileID: 2800000, guid: cf3b7eee1096faf42a908c1f64514854, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: FitnessGrandma_normal
-    second: {fileID: 2800000, guid: ae7c8e9dbf3f0f045a3d5bb062784fb9, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: FitnessGrandma_spec
-    second: {fileID: 2800000, guid: bae1839e3c90bf24782c87f2414ea7cb, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -84,7 +39,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importVisibility: 1
@@ -120,12 +75,8 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips:
-  - cc4e4eaaa72ecdf4c8e8d1f99ad0979b
-  - 17aee45c66d3c894f8e7bb6a6357dd36
-  - 48eb6716d31bdb54faff34c6a950dd93
-  - efe2ae8c92943f54081069fb2afb5d2b
-  importAnimation: 0
+  referencedClips: []
+  importAnimation: 1
   humanDescription:
     serializedVersion: 3
     human:
@@ -1047,11 +998,11 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: e263a5c265918f64184a10abb838d9a1, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 

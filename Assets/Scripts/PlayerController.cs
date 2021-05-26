@@ -31,31 +31,33 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
-        // Jump
-        if (Input.GetKeyDown(KeyCode.W) && grounded)
+        if (!SC_GroundGenerator.instance.gameOver)
         {
-            StopCoroutine(RollCoroutine());
-            ResetCollider();
-            
-            rigidBody.velocity = new Vector3(0, jumpVerticalSpeed, 0);
-        }
+            // Jump
+            if (Input.GetKeyDown(KeyCode.W) && grounded)
+            {
+                StopCoroutine(RollCoroutine());
+                ResetCollider();
 
-        //Roll
-        if(Input.GetKey(KeyCode.S))
-        {
-            StartCoroutine(RollCoroutine());
-        }
+                rigidBody.velocity = new Vector3(0, jumpVerticalSpeed, 0);
+            }
 
-        //Go left and right
-        if(Input.GetKeyDown(KeyCode.A) && transform.position.z < 0.9f * strafeDistance)
-        {
-            transform.position += new Vector3(0, 0, strafeDistance);
-        }
+            //Roll
+            if (Input.GetKey(KeyCode.S))
+            {
+                StartCoroutine(RollCoroutine());
+            }
 
-        if(Input.GetKeyDown(KeyCode.D) && transform.position.z > 0.9f * -strafeDistance)
-        {
-            transform.position += new Vector3(0, 0, -strafeDistance);
+            //Go left and right
+            if (Input.GetKeyDown(KeyCode.A) && transform.position.z < 0.9f * strafeDistance)
+            {
+                transform.position += new Vector3(0, 0, strafeDistance);
+            }
+
+            if (Input.GetKeyDown(KeyCode.D) && transform.position.z > 0.9f * -strafeDistance)
+            {
+                transform.position += new Vector3(0, 0, -strafeDistance);
+            }
         }
     }
 
@@ -87,7 +89,8 @@ public class PlayerController : MonoBehaviour
         ResetCollider();
     }
 
-    void ResetCollider(){
+    void ResetCollider()
+    {
         boxCollider.size = colliderSize;
         boxCollider.center = colliderCenter;
     }
