@@ -7,11 +7,14 @@ public class SC_GroundGenerator : MonoBehaviour
     public Camera mainCamera;
     public Transform startPoint; //Point from where ground tiles will start
     public SC_PlatformTile tilePrefab;
+    public SC_PlatformTile backgroundPrefab;
     public float movingSpeed = 12;
-    public int tilesToPreSpawn = 3; //How many tiles should be pre-spawned
-    public int tilesWithoutObstacles = 3; //How many tiles at the beginning should not have obstacles, good for warm-up
+    public int tilesToPreSpawn = 7; //How many tiles should be pre-spawned
+    public int tilesWithoutObstacles = 1; //How many tiles at the beginning should not have obstacles, good for warm-up
 
     List<SC_PlatformTile> spawnedTiles = new List<SC_PlatformTile>();
+    public int backgroundsToPreSpawn = 3;
+    List<SC_PlatformTile> spawnedBackgrounds = new List<SC_PlatformTile>();
     public bool gameOver = false;
     static bool gameStarted = false;
     float score = 0;
@@ -42,6 +45,17 @@ public class SC_GroundGenerator : MonoBehaviour
             spawnedTile.transform.SetParent(transform);
             spawnedTiles.Add(spawnedTile);
         }
+
+        spawnPosition = startPoint.position;
+        for (int i = 0; i < backgroundsToPreSpawn; i++)
+        {
+            spawnPosition -= tilePrefab.startPoint.localPosition;
+            SC_PlatformTile spawnedBackground = Instantiate(backgroundPrefab, spawnPosition, Quaternion.identity) as SC_PlatformTile;
+            
+            spawnPosition = spawnedBackground.endPoint.position;
+            spawnedBackground.transform.SetParent(transform);
+            spawnedBackgrounds.Add(spawnedBackground);
+        }
     }
 
     void Update()
@@ -60,6 +74,14 @@ public class SC_GroundGenerator : MonoBehaviour
             tileTmp.transform.position = spawnedTiles[spawnedTiles.Count - 1].endPoint.position - tileTmp.startPoint.localPosition;
             tileTmp.ActivateRandomObstacle();
             spawnedTiles.Add(tileTmp);
+        }
+
+        if (mainCamera.WorldToViewportPoint(spawnedBackgrounds[0].endPoint.position).z < 0)
+        {
+            SC_PlatformTile backgroundTmp = spawnedBackgrounds[0];
+            spawnedBackgrounds.RemoveAt(0);
+            backgroundTmp.transform.position = spawnedBackgrounds[spawnedBackgrounds.Count - 1].endPoint.position - backgroundTmp.startPoint.localPosition;
+            spawnedBackgrounds.Add(backgroundTmp);
         }
 
         if (gameOver || !gameStarted)
