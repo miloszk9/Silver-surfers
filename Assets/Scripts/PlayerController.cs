@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight = 2.5f;
     public float shrinkOnRoll = 0.4f;
     public float strafeDistance = 1.5f;
+    public float posZ_target = 0f;
+    public short move; // 0 -> dont move; -1 -> move to the left; 1 -> move to the right
     public AnimationClip rollAnimation;
 
     Rigidbody rigidBody;
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
         colliderSize = boxCollider.size;
         colliderCenter = boxCollider.center;
         jumpVerticalSpeed = CalculateJumpVerticalSpeed();
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
 
     void Update()
@@ -47,16 +50,25 @@ public class PlayerController : MonoBehaviour
             {
                 StartCoroutine(RollCoroutine());
             }
-
-            //Go left and right
+            
+            //Move
             if (Input.GetKeyDown(KeyCode.A) && transform.position.z < 0.9f * strafeDistance)
             {
-                transform.position += new Vector3(0, 0, strafeDistance);
+                move = 1;
+                posZ_target += strafeDistance;
             }
-
             if (Input.GetKeyDown(KeyCode.D) && transform.position.z > 0.9f * -strafeDistance)
             {
-                transform.position += new Vector3(0, 0, -strafeDistance);
+                move = -1;
+                posZ_target -= strafeDistance;
+            }
+            if (Mathf.Abs(transform.position.z - posZ_target) < 0.1f){
+                transform.position -= new Vector3(0, 0, transform.position.z - posZ_target);
+                move = 0;
+            }
+            if (move != 0)
+            {
+                transform.position += new Vector3(0, 0, 0.1f*move*strafeDistance);
             }
         }
     }
