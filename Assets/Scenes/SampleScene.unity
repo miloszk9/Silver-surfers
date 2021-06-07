@@ -369,6 +369,8 @@ MonoBehaviour:
   jumpHeight: 2.5
   shrinkOnRoll: 0.4
   strafeDistance: 1.5
+  posZ_target: 0
+  move: 0
   rollAnimation: {fileID: 7400000, guid: 4377c41a8a255e1459c5f21a645e2d34, type: 2}
 --- !u!54 &216941811
 Rigidbody:
@@ -637,9 +639,11 @@ MonoBehaviour:
   mainCamera: {fileID: 963194227}
   startPoint: {fileID: 636939830}
   tilePrefab: {fileID: 4225882037297489035, guid: 22513c41b073eed4b8e473b17b85796c, type: 3}
+  backgroundPrefab: {fileID: 4225882037297489035, guid: 5a277eaf76c9cf3458a875be4069717c, type: 3}
   movingSpeed: 12
   tilesToPreSpawn: 7
   tilesWithoutObstacles: 1
+  backgroundsToPreSpawn: 3
   gameOver: 0
 --- !u!4 &2066658383
 Transform:
