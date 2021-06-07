@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
             }
             if (move != 0)
             {
-                transform.position += new Vector3(0, 0, 0.1f*move*strafeDistance);
+                transform.position += new Vector3(0, 0, 0.03f*move*strafeDistance);
             }
         }
     }

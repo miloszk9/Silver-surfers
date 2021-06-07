@@ -16,8 +16,8 @@ public class SC_GroundGenerator : MonoBehaviour
     public int backgroundsToPreSpawn = 3;
     List<SC_PlatformTile> spawnedBackgrounds = new List<SC_PlatformTile>();
     public bool gameOver = false;
-    static bool gameStarted = false;
-    float score = 0;
+    public bool gameStarted = false;
+    public float score = 0;
 
     public static SC_GroundGenerator instance;
 
@@ -101,27 +101,5 @@ public class SC_GroundGenerator : MonoBehaviour
                 }
             }
         }
-    }
-
-    void OnGUI()
-    {
-        //TODO: Proper GUI
-        if (gameOver)
-        {
-            GUI.color = Color.red;
-            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 100, 200, 200), "Game Over\nYour score is: " + ((int)score) + "\nPress 'Space' to restart");
-        }
-        else
-        {
-            if (!gameStarted)
-            {
-                GUI.color = Color.red;
-                GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 100, 200, 200), "Press 'Space' to start");
-            }
-        }
-
-
-        GUI.color = Color.green;
-        GUI.Label(new Rect(5, 5, 200, 25), "Score: " + ((int)score));
     }
 }
