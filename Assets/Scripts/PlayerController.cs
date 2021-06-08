@@ -52,12 +52,12 @@ public class PlayerController : MonoBehaviour
             }
             
             //Move
-            if (Input.GetKeyDown(KeyCode.A) && transform.position.z < 0.9f * strafeDistance)
+            if (Input.GetKeyDown(KeyCode.A) && posZ_target < 0.9f * strafeDistance)
             {
                 move = 1;
                 posZ_target += strafeDistance;
             }
-            if (Input.GetKeyDown(KeyCode.D) && transform.position.z > 0.9f * -strafeDistance)
+            if (Input.GetKeyDown(KeyCode.D) && posZ_target > 0.9f * -strafeDistance)
             {
                 move = -1;
                 posZ_target -= strafeDistance;
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
             }
             if (move != 0)
             {
-                transform.position += new Vector3(0, 0, 0.03f*move*strafeDistance);
+                transform.position += new Vector3(0, 0, 0.05f*move*strafeDistance);
             }
         }
     }
