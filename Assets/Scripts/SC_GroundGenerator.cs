@@ -81,6 +81,7 @@ public class SC_GroundGenerator : MonoBehaviour
             SC_PlatformTile backgroundTmp = spawnedBackgrounds[0];
             spawnedBackgrounds.RemoveAt(0);
             backgroundTmp.transform.position = spawnedBackgrounds[spawnedBackgrounds.Count - 1].endPoint.position - backgroundTmp.startPoint.localPosition;
+            backgroundTmp.ActivateRandomObstacle();
             spawnedBackgrounds.Add(backgroundTmp);
         }
 
